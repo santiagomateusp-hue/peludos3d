@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Peluditos 3D - Accesorios ecológicos para celular que apoyan a la Fundación Animalista Girardot.">
+    <title>Peluditos 3D | Accesorios con Corazón</title>
+    
+    <!-- FUENTES -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- ICONOS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- ANIMACIONES -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        :root {
+            /* PALETA DE COLORES */
+            --green-main: #81C784;     /* Verde Menta */
+            --green-dark: #66BB6A;
+            --green-bg: #F1F8E9;
+            
+            --blue-main: #4FC3F7;      /* Azul Cielo */
+            --blue-dark: #29B6F6;
+            --blue-bg: #E1F5FE;
+            
+            --white: #ffffff;
+            --text-main: #455A64;
+            --text-light: #78909C;
+            
+            --shadow-soft: 0 10px 30px rgba(0,0,0,0.05);
+            --shadow-card: 0 15px 35px rgba(0,0,0,0.08);
+            --radius: 25px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            color: var(--text-main);
+            background: #fff;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Fredoka', sans-serif;
+            color: var(--text-main);
+            line-height: 1.2;
+        }
+
+        p { margin-bottom: 15px; font-size: 1.05rem; }
+        .container { max-width: 1150px; margin: 0 auto; padding: 0 20px; }
+        .text-center { text-align: center; }
+        
+        /* --- BOTONES --- */
+        .btn {
+            display: inline-block; padding: 15px 40px; border-radius: 50px;
+            font-weight: 700; font-size: 1.1rem; text-decoration: none;
+            transition: 0.3s; border: none; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .btn-primary { background: var(--green-main); color: white; }
+        .btn-primary:hover { background: var(--green-dark); transform: translateY(-5px); }
+        .btn-secondary { background: var(--blue-main); color: white; }
+        .btn-secondary:hover { background: var(--blue-dark); transform: translateY(-5px); }
+
+        /* --- HEADER --- */
+        header {
+            background: rgba(255,255,255,0.95); padding: 10px 0; position: sticky; top: 0;
+            z-index: 1000; box-shadow: 0 2px 15px rgba(0,0,0,0.05); backdrop-filter: blur(8px);
+        }
+        .nav-box { display: flex; justify-content: space-between; align-items: center; }
+        .logo img { height: 60px; transition: 0.3s; }
+        .logo img:hover { transform: scale(1.05); }
+        .nav-menu { display: flex; gap: 30px; list-style: none; align-items: center; }
+        .nav-link { text-decoration: none; color: var(--text-main); font-weight: 600; font-size: 1.05rem; transition: 0.3s; }
+        .nav-link:hover { color: var(--green-main); }
+
+        /* --- HERO --- */
+        .hero {
+            padding: 80px 0 120px; background: radial-gradient(circle at top right, var(--green-bg), white);
+            display: flex; align-items: center; min-height: 90vh; position: relative;
+        }
+        .hero-content { flex: 1; padding-right: 50px; }
+        .tag-trust {
+            display: inline-flex; align-items: center; gap: 8px; background: var(--blue-bg);
+            color: var(--blue-dark); padding: 6px 16px; border-radius: 20px; font-weight: bold;
+            font-size: 0.9rem; margin-bottom: 25px; border: 1px solid var(--blue-main);
+        }
+        .hero h1 { font-size: 3.5rem; margin-bottom: 20px; color: var(--text-main); }
+        .hero h1 span { color: var(--green-main); }
+        .hero-img { flex: 1; position: relative; display: flex; justify-content: center; }
+        .hero-img img {
+            width: 90%; max-width: 500px; border-radius: 40px; border: 8px solid white;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1); transform: rotate(-2deg);
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float { 0%, 100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-20px) rotate(-2deg); } }
+
+        /* --- STATS --- */
+        .stats-bar {
+            background: white; margin-top: -60px; position: relative; z-index: 2; border-radius: 20px;
+            padding: 30px; box-shadow: var(--shadow-soft); display: flex; justify-content: space-around; gap: 20px; flex-wrap: wrap;
+        }
+        .stat-number { font-size: 2rem; font-weight: 800; color: var(--green-main); display: block; line-height: 1; }
+
+        /* --- FEATURES --- */
+        .features { padding: 100px 0; background: white; }
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; }
+        .feature-card {
+            padding: 30px; border-radius: var(--radius); background: var(--green-bg);
+            border-left: 5px solid var(--green-main); transition: 0.3s;
+        }
+        .feature-card:hover { transform: translateY(-5px); }
+        .feature-card i { font-size: 2.5rem; color: var(--green-main); margin-bottom: 15px; }
+
+        /* --- CATALOGO --- */
+        .catalog { padding: 100px 0; background: var(--blue-bg); }
+        .section-title { text-align: center; font-size: 3rem; margin-bottom: 15px; }
+        .section-subtitle { text-align: center; margin-bottom: 60px; max-width: 700px; margin-left: auto; margin-right: auto; }
+        
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 30px; }
+        .product-card {
+            background: white; border-radius: var(--radius); overflow: hidden;
+            box-shadow: var(--shadow-soft); position: relative; transition: 0.3s;
+        }
+        .product-card:hover { transform: translateY(-10px); box-shadow: var(--shadow-card); }
+        .badge-offer {
+            position: absolute; top: 20px; left: 20px; background: #FFB74D; color: white;
+            padding: 6px 15px; border-radius: 12px; font-weight: bold; z-index: 2;
+        }
+        .p-img { height: 300px; overflow: hidden; background: #f9f9f9; }
+        .p-img img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+        .product-card:hover .p-img img { transform: scale(1.1); }
+        .p-info { padding: 25px; text-align: center; }
+        .p-price { font-size: 1.6rem; font-weight: 800; color: var(--green-main); margin: 10px 0; }
+        .p-price s { font-size: 1.1rem; color: #ccc; font-weight: 400; margin-right: 10px; }
+        .btn-select {
+            width: 100%; padding: 12px; border: 2px solid var(--blue-main); background: transparent;
+            color: var(--blue-main); border-radius: 50px; font-weight: bold; cursor: pointer; transition: 0.3s;
+        }
+        .btn-select:hover, .btn-select.active { background: var(--blue-main); color: white; }
+
+        /* --- EXTRAS --- */
+        .install { padding: 80px 0; background: white; text-align: center; }
+        .steps-grid { display: flex; justify-content: center; gap: 40px; margin-top: 50px; flex-wrap: wrap; }
+        .step-num {
+            width: 50px; height: 50px; background: var(--green-main); color: white;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-weight: bold; font-size: 1.2rem; margin: 0 auto 20px;
+        }
+
+        .gift { padding: 100px 0; background: var(--green-bg); }
+        .gift-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .gift-list li {
+            list-style: none; background: white; padding: 15px 25px; margin-bottom: 15px;
+            border-radius: 15px; display: flex; align-items: center; gap: 15px;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.03); font-weight: 600;
+        }
+        .gift-list i { color: var(--green-main); font-size: 1.3rem; }
+        .gift-img img {
+            width: 100%; border-radius: 30px; border: 5px solid white;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1); transform: rotate(3deg); transition: 0.3s;
+        }
+        .gift-img img:hover { transform: rotate(0deg); }
+
+        .mission { padding: 100px 0; background: white; }
+        .mission-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .mission-img img { width: 100%; max-width: 400px; border-radius: 30px; box-shadow: var(--shadow-card); border: 4px solid var(--blue-bg); }
+        .donation-card {
+            margin-top: 30px; padding: 25px; background: #FFF3E0; border-radius: 20px;
+            border: 1px solid #FFE0B2; color: #E65100; display: flex; gap: 20px; align-items: center;
+        }
+
+        .reviews { padding: 80px 0; background: var(--blue-bg); }
+        .review-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 40px; }
+        .review-card { background: white; padding: 30px; border-radius: 20px; box-shadow: var(--shadow-soft); }
+        .stars { color: #FFB74D; margin-bottom: 15px; }
+
+        .faq { padding: 80px 0; background: white; }
+        .faq-container { max-width: 800px; margin: 0 auto; }
+        .faq-item { border-bottom: 1px solid #eee; padding: 20px 0; }
+        .faq-q { font-weight: 700; font-size: 1.1rem; display: block; margin-bottom: 5px; }
+
+        /* --- FORMULARIO --- */
+        .order-section { padding: 100px 0; background: linear-gradient(135deg, var(--green-main), var(--blue-main)); }
+        .order-card {
+            background: white; max-width: 700px; margin: 0 auto; padding: 60px;
+            border-radius: 30px; box-shadow: 0 30px 60px rgba(0,0,0,0.2); position: relative;
+        }
+        .order-card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 10px;
+            background: repeating-linear-gradient(45deg, var(--green-main), var(--green-main) 10px, var(--blue-main) 10px, var(--blue-main) 20px);
+            border-radius: 30px 30px 0 0;
+        }
+        .form-group { margin-bottom: 25px; }
+        .form-group label { display: block; font-weight: 700; margin-bottom: 10px; }
+        .form-group input, .form-group select {
+            width: 100%; padding: 15px; border: 2px solid #ECEFF1;
+            border-radius: 12px; font-size: 1rem; transition: 0.3s; font-family: 'Quicksand', sans-serif;
+        }
+        .form-group input:focus { border-color: var(--green-main); outline: none; background: #FAFAFA; }
+
+        footer { background: #37474F; color: white; padding: 80px 0 40px; text-align: center; }
+        .footer-brand { font-family: 'Fredoka', sans-serif; font-size: 2.5rem; color: white; text-decoration: none; display: block; margin-bottom: 10px; }
+        .social-links a {
+            display: inline-flex; width: 50px; height: 50px; background: rgba(255,255,255,0.1);
+            border-radius: 50%; align-items: center; justify-content: center; color: white;
+            font-size: 1.5rem; margin: 0 10px; transition: 0.3s;
+        }
+        .social-links a:hover { background: var(--green-main); transform: translateY(-5px); }
+
+        .wa-float {
+            position: fixed; bottom: 30px; right: 30px; background: #25D366; color: white;
+            width: 70px; height: 70px; border-radius: 50%; display: flex;
+            align-items: center; justify-content: center; font-size: 35px;
+            box-shadow: 0 10px 20px rgba(37, 211, 102, 0.4); z-index: 999; animation: pulse 2s infinite;
+        }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); } 70% { box-shadow: 0 0 0 20px rgba(37, 211, 102, 0); } 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); } }
+
+        @media (max-width: 768px) {
+            .hero, .gift-grid, .mission-grid { flex-direction: column; text-align: center; }
+            .hero-content { padding: 0; margin-bottom: 50px; }
+            .nav-menu { display: none; }
+            .stats-bar { margin-top: 30px; }
+            .gift-img, .mission-img { margin-top: 40px; }
+            .order-card { padding: 30px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <div class="container nav-box">
+            <a href="#" class="logo">
+                <img src="logo.png" alt="Peluditos 3D">
+            </a>
+            <ul class="nav-menu">
+                <li><a href="#inicio" class="nav-link">Inicio</a></li>
+                <li><a href="#beneficios" class="nav-link">Beneficios</a></li>
+                <li><a href="#catalogo" class="nav-link">Colección</a></li>
+                <li><a href="#mision" class="nav-link">Misión</a></li>
+                <li><a href="#pedido" class="btn btn-primary" style="padding: 10px 25px; font-size: 0.95rem;">Pedir Ahora</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section id="inicio" class="hero">
+        <div class="container" style="display: flex; align-items: center;">
+            <div class="hero-content" data-aos="fade-right">
+                <div class="tag-trust"><i class="fa-solid fa-shield-heart"></i> Compra 100% Segura</div>
+                <h1>Lleva el Amor por los Animales en tu <span>Celular</span></h1>
+                <p>Muñecos 3D pintados a mano que se abrazan a tu pantalla. Ecológicos, tiernos y con el poder de ayudar a perritos de la calle.</p>
+                <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                    <a href="#catalogo" class="btn btn-primary">Ver Modelos <i class="fa-solid fa-arrow-right"></i></a>
+                    <a href="#video" class="btn btn-secondary">Cómo funcionan</a>
+                </div>
+            </div>
+            <div class="hero-img" data-aos="zoom-in">
+                <img src="hero.jpg" alt="Peludito en celular">
+            </div>
+        </div>
+    </section>
+
+    <!-- ESTADÍSTICAS -->
+    <div class="container">
+        <div class="stats-bar" data-aos="fade-up">
+            <div class="stat-item">
+                <span class="stat-number">+1.500</span>
+                <span class="stat-label">Clientes Felices</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">100%</span>
+                <span class="stat-label">Material Ecológico</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">+50</span>
+                <span class="stat-label">Ayudas Entregadas</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">4.9/5</span>
+                <span class="stat-label">Calificación</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- BENEFICIOS -->
+    <section id="beneficios" class="features">
+        <div class="container">
+            <div class="text-center" style="margin-bottom: 50px;">
+                <h2>¿Por qué elegir Peluditos 3D?</h2>
+                <p>Más que un accesorio, es una declaración de amor.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card" data-aos="fade-up">
+                    <i class="fa-solid fa-paintbrush"></i>
+                    <h3>Arte Hecho a Mano</h3>
+                    <p>Cada pieza se imprime en 3D y se pinta manualmente con detalle y cariño. Ninguno es igual a otro.</p>
+                </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                    <i class="fa-solid fa-leaf"></i>
+                    <h3>Material Sostenible</h3>
+                    <p>Usamos PLA, un plástico vegetal derivado del maíz. Resistente pero amable con el planeta.</p>
+                </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                    <i class="fa-solid fa-face-smile-beam"></i>
+                    <h3>Diseño Universal</h3>
+                    <p>Se adapta perfectamente al borde de cualquier celular, tablet o pantalla de computador portátil.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CATÁLOGO (CON NUEVOS PRODUCTOS) -->
+    <section id="catalogo" class="catalog">
+        <div class="container">
+            <h2 class="section-title">Nuestra Colección</h2>
+            <p class="section-subtitle">Escoge tu raza favorita. Todos incluyen adhesivo de alta resistencia y empaque de regalo.</p>
+            
+            <div class="products-grid">
+                <!-- Poodle -->
+                <div class="product-card" data-aos="fade-up">
+                    <div class="badge-offer">POPULAR</div>
+                    <div class="p-img"><img src="poodle.jpg" alt="Poodle"></div>
+                    <div class="p-info">
+                        <h3>Poodle</h3>
+                        <p class="p-price"><s>$25.000</s> $20.000</p>
+                        <button class="btn-select" onclick="selectProduct('Poodle')">Lo Quiero 🐩</button>
+                    </div>
+                </div>
+
+                <!-- Pinscher -->
+                <div class="product-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="badge-offer">-20% OFF</div>
+                    <div class="p-img"><img src="pinscher.jpg" alt="Pinscher"></div>
+                    <div class="p-info">
+                        <h3>Pinscher</h3>
+                        <p class="p-price"><s>$25.000</s> $20.000</p>
+                        <button class="btn-select" onclick="selectProduct('Pinscher')">Lo Quiero 🐕</button>
+                    </div>
+                </div>
+
+                <!-- Gato Criollo -->
+                <div class="product-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="badge-offer">-20% OFF</div>
+                    <div class="p-img"><img src="gato.jpg" alt="Gato"></div>
+                    <div class="p-info">
+                        <h3>Gato Criollo</h3>
+                        <p class="p-price"><s>$25.000</s> $20.000</p>
+                        <button class="btn-select" onclick="selectProduct('Gato Criollo')">Lo Quiero 🐱</button>
+                    </div>
+                </div>
+
+                <!-- Shih Tzu -->
+                <div class="product-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="badge-offer">NUEVO</div>
+                    <div class="p-img"><img src="shihtzu.jpg" alt="Shih Tzu"></div>
+                    <div class="p-info">
+                        <h3>Shih Tzu</h3>
+                        <p class="p-price"><s>$25.000</s> $20.000</p>
+                        <button class="btn-select" onclick="selectProduct('Shih Tzu')">Lo Quiero 🐶</button>
+                    </div>
+                </div>
+
+                <!-- Perro Criollo (NUEVO) -->
+                <div class="product-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="badge-offer">EDICIÓN ESPECIAL</div>
+                    <div class="p-img"><img src="perro-criollo.jpg" alt="Perro Criollo"></div>
+                    <div class="p-info">
+                        <h3>Perro Criollo</h3>
+                        <p class="p-price"><s>$25.000</s> $20.000</p>
+                        <button class="btn-select" onclick="selectProduct('Perro Criollo')">Lo Quiero 🧡</button>
+                    </div>
+                </div>
+
+                <!-- Gato Persa (NUEVO) -->
+                <div class="product-card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="badge-offer">PREMIUM</div>
+                    <div class="p-img"><img src="gato-persa.jpg" alt="Gato Persa"></div>
+                    <div class="p-info">
+                        <h3>Gato Persa</h3>
+                        <p class="p-price"><s>$25.000</s> $20.000</p>
+                        <button class="btn-select" onclick="selectProduct('Gato Persa')">Lo Quiero 😽</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CÓMO INSTALAR -->
+    <section id="video" class="install">
+        <div class="container">
+            <h2>¡Instalarlo es muy fácil!</h2>
+            <p>Solo te tomará 10 segundos darle vida a tu celular.</p>
+            <div class="steps-grid">
+                <div class="step-box" data-aos="zoom-in">
+                    <div class="step-num">1</div>
+                    <h4>Limpia</h4>
+                    <p>Limpia el borde de tu celular para quitar grasa o polvo.</p>
+                </div>
+                <div class="step-box" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="step-num">2</div>
+                    <h4>Pega</h4>
+                    <p>Retira el protector del adhesivo 3M incluido en las patitas.</p>
+                </div>
+                <div class="step-box" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="step-num">3</div>
+                    <h4>Disfruta</h4>
+                    <p>Presiona suavemente por 5 segundos y ¡Listo! No se caerá.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- REGALO PERFECTO -->
+    <section class="gift">
+        <div class="container">
+            <div class="gift-grid">
+                <div data-aos="fade-right">
+                    <h2 style="font-size: 2.5rem; margin-bottom: 20px;">El Regalo que Roba Sonrisas 🎁</h2>
+                    <p>¿No sabes qué regalar? Un Peludito 3D es original, económico y con significado.</p>
+                    <ul class="gift-list">
+                        <li><i class="fa-solid fa-cake-candles"></i> Ideal para cumpleaños y fechas especiales.</li>
+                        <li><i class="fa-solid fa-heart"></i> Para recordar a una mascota amada.</li>
+                        <li><i class="fa-solid fa-laptop"></i> Decora espacios de trabajo aburridos.</li>
+                        <li><i class="fa-solid fa-box-open"></i> Llega en cajita listo para entregar.</li>
+                    </ul>
+                </div>
+                <div class="gift-img text-center" data-aos="zoom-in">
+                    <img src="regalo.jpg" alt="Caja de regalo Peluditos">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MISIÓN -->
+    <section id="mision" class="mission">
+        <div class="container">
+            <div class="mission-grid">
+                <div class="mission-img" data-aos="fade-right">
+                    <img src="info.jpg" alt="Fundación Animalista">
+                </div>
+                <div class="mission-content" data-aos="fade-left">
+                    <h2 style="color: var(--green-main);">Ayudamos a quienes no tienen voz 🐾</h2>
+                    <p>Peluditos 3D nació en Girardot con un propósito: convertir ventas en ayuda real.</p>
+                    <p>Somos aliados oficiales de la <strong>Fundación Animalista Girardot</strong>. Con cada accesorio que compras, estás donando un porcentaje directo para alimentos, esterilizaciones y rescates.</p>
+                    <div class="donation-card">
+                        <i class="fa-solid fa-hand-holding-heart"></i>
+                        <div>
+                            <strong>Compra con Propósito</strong>
+                            <div style="font-size: 0.9rem;">Tu pedido de hoy ayuda a llenar una pancita mañana.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIOS -->
+    <section class="reviews">
+        <div class="container">
+            <div class="text-center">
+                <h2>Lo que dicen nuestros clientes</h2>
+            </div>
+            <div class="review-grid">
+                <div class="review-card" data-aos="fade-up">
+                    <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                    <p>"Es idéntico a mi perrito. La calidad es excelente y el adhesivo muy fuerte. ¡Me encantó!"</p>
+                    <div class="user"><div class="avatar">C</div> Camila R. - Bogotá</div>
+                </div>
+                <div class="review-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                    <p>"Compré 3 para regalar en la oficina y fueron un éxito total. Además me gusta apoyar a la fundación."</p>
+                    <div class="user"><div class="avatar">J</div> Julián M. - Medellín</div>
+                </div>
+                <div class="review-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                    <p>"El envío fue súper rápido. La cajita en la que viene es muy tierna. Recomendados."</p>
+                    <div class="user"><div class="avatar">A</div> Ana Sofía - Girardot</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq">
+        <div class="container">
+            <h2 class="text-center mb-5">Preguntas Frecuentes</h2>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <span class="faq-q">¿El adhesivo daña mi celular?</span>
+                    <p class="faq-a">No, usamos cinta 3M de alta calidad que se adhiere fuerte pero se puede retirar sin dejar residuos pegajosos.</p>
+                </div>
+                <div class="faq-item">
+                    <span class="faq-q">¿Hacen envíos contra entrega?</span>
+                    <p class="faq-a">Manejamos pagos anticipados por Nequi/Daviplata para personalizar tu pedido, pero garantizamos el envío.</p>
+                </div>
+                <div class="faq-item">
+                    <span class="faq-q">¿Cuánto tarda en llegar?</span>
+                    <p class="faq-a">Generalmente de 2 a 4 días hábiles dependiendo de tu ciudad (Enviamos desde Girardot/Cundinamarca).</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FORMULARIO -->
+    <section id="pedido" class="order-section">
+        <div class="container">
+            <div class="order-card" data-aos="zoom-in-up">
+                <div class="text-center mb-5">
+                    <h2 style="color: var(--green-main); font-size: 2.2rem;">¡Finaliza tu Pedido Aquí! 👇</h2>
+                    <p>Llena tus datos y serás redirigido a nuestro WhatsApp oficial para confirmar pago y envío.</p>
+                </div>
+
+                <form onsubmit="sendToWhatsapp(event)">
+                    <div class="form-group">
+                        <label>Nombre Completo:</label>
+                        <input type="text" id="name" placeholder="Ej: María Pérez" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Selecciona tu Peludito:</label>
+                        <select id="product" required>
+                            <option value="" disabled selected>Elige una opción...</option>
+                            <option value="Poodle">Poodle ($20.000)</option>
+                            <option value="Pinscher">Pinscher ($20.000)</option>
+                            <option value="Gato Criollo">Gato Criollo ($20.000)</option>
+                            <option value="Shih Tzu">Shih Tzu ($20.000)</option>
+                            <option value="Perro Criollo">Perro Criollo ($20.000)</option>
+                            <option value="Gato Persa">Gato Persa ($20.000)</option>
+                        </select>
+                    </div>
+
+                    <div style="display: flex; gap: 20px;">
+                        <div class="form-group" style="flex: 1;">
+                            <label>Cantidad:</label>
+                            <input type="number" id="quantity" value="1" min="1" required>
+                        </div>
+                        <div class="form-group" style="flex: 1;">
+                            <label>Ciudad:</label>
+                            <input type="text" id="city" placeholder="Ej: Cali" required>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" style="width: 100%; font-size: 1.3rem;">
+                        <i class="fa-brands fa-whatsapp"></i> Enviar Pedido
+                    </button>
+                    <p class="text-center mt-3" style="font-size: 0.85rem; color: #aaa;">
+                        <i class="fa-solid fa-lock"></i> Tus datos están seguros.
+                    </p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <a href="#" class="footer-brand">Peluditos 3D</a>
+            <p style="max-width: 500px; margin: 0 auto; color: #CFD8DC;">
+                Diseñamos sonrisas, imprimimos ternura y apoyamos a los animales que más lo necesitan.
+            </p>
+            
+            <div class="social-links">
+                <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+                <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+            </div>
+            
+            <div class="footer-copy">
+                &copy; 2023 Peluditos 3D. Todos los derechos reservados.<br>
+                Girardot, Cundinamarca - Colombia.
+            </div>
+        </div>
+    </footer>
+
+    <!-- BOTÓN FLOTANTE -->
+    <a href="https://wa.me/573052556248" class="wa-float" target="_blank" aria-label="Chat de WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- SCRIPTS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Iniciar animaciones
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100
+        });
+
+        // Selección de producto
+        function selectProduct(name) {
+            const select = document.getElementById('product');
+            select.value = name;
+            document.getElementById('pedido').scrollIntoView({ behavior: 'smooth' });
+            
+            // Feedback visual
+            const btns = document.querySelectorAll('.btn-select');
+            btns.forEach(b => {
+                b.innerHTML = `Lo Quiero ${getEmoji(b.innerText)}`;
+                b.classList.remove('active');
+            });
+            event.target.innerHTML = "¡Seleccionado! <i class='fa-solid fa-check'></i>";
+            event.target.classList.add('active');
+        }
+
+        // Helper emojis
+        function getEmoji(text) {
+            if(text.includes('Poodle')) return '🐩';
+            if(text.includes('Pinscher')) return '🐕';
+            if(text.includes('Gato')) return '🐱';
+            return '🐶';
+        }
+
+        // Enviar a WhatsApp
+        function sendToWhatsapp(e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const product = document.getElementById('product').value;
+            const quantity = document.getElementById('quantity').value;
+            const city = document.getElementById('city').value;
+            const total = (20000 * quantity).toLocaleString();
+
+            const message = `Hola Peluditos 3D! 🐾%0A%0AME ENCANTA su proyecto y quiero hacer un pedido:%0A%0A👤 *Nombre:* ${name}%0A🎁 *Modelo:* ${product}%0A🔢 *Cantidad:* ${quantity}%0A📍 *Ciudad:* ${city}%0A💰 *Valor Total:* $${total}%0A%0A¿Me regalan los datos para el pago? Gracias!`;
+            
+            window.open(`https://wa.me/573052556248?text=${message}`, '_blank');
+        }
+    </script>
+</body>
+</html>
